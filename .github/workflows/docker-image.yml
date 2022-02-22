@@ -28,7 +28,9 @@ jobs:
       run: docker run --rm --privileged --detach --name test $GITHUB_REPOSITORY:test
 
     - name: Test image
-      run: docker exec --tty test docker info
+      run: |
+        docker logs test
+        docker exec --tty test docker info
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
