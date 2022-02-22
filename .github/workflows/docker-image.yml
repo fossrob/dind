@@ -24,6 +24,9 @@ jobs:
     needs: build
   
     steps:
+    - name: Debug
+      run: docker ps -a; docker image ls
+
     - name: Test image
       run: docker exec --tty ${{ github.repository }}:test docker info
 
