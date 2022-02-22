@@ -28,8 +28,9 @@ jobs:
       run: docker run --rm --privileged --detach --name test $GITHUB_REPOSITORY:test
 
     - name: Test image
+      shell: bash
       run: |
-        docker logs test
+        for i in {1..10}; do sleep 1; [[ -S /var/run/docker.sock ]] && break; done
         docker exec --tty test docker info
 
     - name: Login to DockerHub
