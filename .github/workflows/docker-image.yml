@@ -3,27 +3,43 @@ name: Docker Image CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Build image
+      run: docker build --tag ${{ github.repository }}:test .
+
+    - name: Run image
+      run: docker run --rm --priviliged --detach ${{ github.repository }}:test
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+  
+    steps:
+    - name: Test image
+      run: docker exec --tty ${{ github.repository }}:test docker info
+
+  push:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
     - name: Login to DockerHub
       uses: docker/login-action@v1.13.0
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Build and push to DockerHub
-      uses: docker/build-push-action@v2.9.0
-      with:
-        push: true
-        tags: ${{ github.repository }}:latest
+    - name: Tag image
+      run: docker tag ${{ github.repository }}:test ${{ github.repository }}:latest
+
+    - name: Push image to DockerHub
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:latest
