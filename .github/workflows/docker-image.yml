@@ -25,7 +25,7 @@ jobs:
         tags: ${{ github.repository }}:test
 
     - name: Run image
-      run: docker run --rm --privileged --detach ${{ github.repository }}:test
+      run: docker run --rm --privileged --detach --name ${{ github.repository }}:test ${{ github.repository }}:test
 
     - name: Test image
       run: docker exec --tty ${{ github.repository }}:test docker info
