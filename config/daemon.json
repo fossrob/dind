@@ -1,0 +1,9 @@
+{
+    "bip": "",
+    "default-address-pools": [
+        {
+            "base": "10.1.0.0/20",
+            "size": 24
+        }
+    ]
+}
