@@ -25,10 +25,10 @@ jobs:
         tags: ${{ github.repository }}:test
 
     - name: Run image
-      run: docker run --rm --privileged --detach --name $GITHUB_REPOSITORY:test $GITHUB_REPOSITORY:test
+      run: docker run --rm --privileged --detach --name "$GITHUB_REPOSITORY:test" "$GITHUB_REPOSITORY:test"
 
     - name: Test image
-      run: docker exec --tty $GITHUB_REPOSITORY:test docker info
+      run: docker exec --tty "$GITHUB_REPOSITORY:test" docker info
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
