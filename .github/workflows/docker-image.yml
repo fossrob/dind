@@ -29,15 +29,15 @@ jobs:
 
     - name: Start image
       run: |
-        docker run --rm --privileged --detach \
-          --volume $GITHUB_WORKSPACE/bin/test.sh:/usr/local/bin/test.sh \
-          --name test $GITHUB_REPOSITORY:test
+        docker run --rm --privileged --detach --name test-image \
+          --volume $GITHUB_WORKSPACE/bin/wait-for-dockerd.sh:/usr/local/bin/wait-for-dockerd.sh \
+          $GITHUB_REPOSITORY:test
 
     - name: Wait for dockerd to start
-      run: docker exec --tty test test.sh
+      run: docker exec --tty test-image wait-for-dockerd.sh
 
     - name: Test docker in docker
-      run: docker exec --tty test docker info
+      run: docker exec --tty test-image docker info
 
     - name: Push image to DockerHub
       uses: docker/build-push-action@v2
