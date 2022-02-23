@@ -7,5 +7,5 @@ ENV DOCKER_HOST='unix:///var/run/docker.sock'
 # Add docker daemon configuration
 COPY ./config/daemon.json /etc/docker/
 
-# Install packages
-RUN apk add --no-cache bash docker-compose
+# Update and install packages
+RUN apk upgrade --no-cache && apk add --no-cache bash docker-compose
