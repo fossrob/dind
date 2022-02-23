@@ -31,7 +31,7 @@ jobs:
       run: docker run --rm --privileged --detach --volume $GITHUB_WORKSPACE/bin/test.sh:/usr/local/bin/test.sh --name test $GITHUB_REPOSITORY:test
 
     - name: Wait for dockerd
-      run: test.sh
+      run: docker exec --tty test test.sh
 
     - name: Test image
       run: docker exec --tty test docker info
