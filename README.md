@@ -1,3 +1,3 @@
 # Docker in Docker Container
 
-[![Docker Image CI](https://github.com/fossrob/dind/actions/workflows/docker-image.yml/badge.svg)](https://github.com/fossrob/dind/actions/workflows/docker-image.yml)
+[![Docker Image Publish](https://github.com/fossrob/dind/actions/workflows/image-publish.yml/badge.svg)](https://github.com/fossrob/dind/actions/workflows/image-publish.yml)
