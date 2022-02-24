@@ -5,7 +5,7 @@ FROM docker:dind
 ENV DOCKER_HOST='unix:///var/run/docker.sock'
 
 # Change default behavior to not use TLS
-ENV DOCKER_TLS_CERTDIR=
+ENV DOCKER_TLS_CERTDIR=''
 
 # Modify entrypoint script to not bind to port 2375 if not using TLS
 COPY ./scripts/dockerd-entrypoint.sh /usr/local/bin/dockerd-entrypoint.sh
